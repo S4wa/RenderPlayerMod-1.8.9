@@ -1,6 +1,11 @@
 package net.simplyrin.renderplayermod;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import net.minecraft.client.Minecraft;
@@ -21,30 +26,71 @@ import net.simplyrin.renderplayermod.command.RenderPlayer;
 public class RenderPlayerMod {
 
 	public static final String MODID = "RenderPlayerMod";
-	public static final String VERSION = "1.0-KAMO";
+	public static final String VERSION = "1.0-DATOOMOU";
 
 	@EventHandler
-    public void init(FMLInitializationEvent event) {
+	public void init(FMLInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(this);
 		ClientCommandHandler.instance.registerCommand(new RenderPlayer());
 
 		File file = new File("config/renderplayermod.txt");
-		if(!file.exists()) {
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		loadSettings();
 	}
 
 	@SubscribeEvent
 	public void onRenderGui(RenderGameOverlayEvent.Post event) {
-		GuiInventory.drawEntityOnScreen(70 + 51, 15 + 75, 30, (float) (50 + 51) - 100, (float) (100 + 75 - 50) - 120, Minecraft.getMinecraft().thePlayer);
+		GuiInventory.drawEntityOnScreen(
+				counterPosX, counterPosY, 30,
+				(float) counterPosX - 100,
+				(float) counterPosY - 120,
+				Minecraft.getMinecraft().thePlayer);
 	}
 
 	public static String getPrefix() {
 		return "§7[§cRenderPlayer§7] §r";
 	}
 
+	private static void loadSettings() {
+		File settings = new File("config/renderplayermod.txt");
+		if (!settings.exists()) {
+			try {
+				settings.createNewFile();
+				BufferedWriter writer = new BufferedWriter(new FileWriter(settings));
+				writer.write(counterPosX + ":" + counterPosY);
+				writer.close();
+			} catch (FileNotFoundException err) {
+				err.printStackTrace();
+			} catch (IOException err) {
+				err.printStackTrace();
+			}
+			return;
+		} else {
+			try {
+				BufferedReader reader = new BufferedReader(new FileReader(settings));
+				String[] options = reader.readLine().split(":");
+				counterPosX = Integer.valueOf(options[0]).intValue();
+				counterPosY = Integer.valueOf(options[1]).intValue();
+				reader.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			System.out.println(counterPosX);
+		}
+	}
+
+	public static void saveSettings() {
+		File settings = new File("config/renderplayermod.txt");
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(settings));
+			writer.write(counterPosX + ":" + counterPosY);
+			writer.close();
+		} catch (IOException err) {
+			err.printStackTrace();
+		}
+	}
+
+	public static int counterPosX = 20;
+	public static int counterPosY = 60;
 }
