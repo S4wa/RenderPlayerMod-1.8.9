@@ -50,12 +50,6 @@ public class GuiSettings extends GuiScreen {
 		super.drawScreen(x, y, partialTicks);
 	}
 
-	protected void keyTyped(char c, int key) {
-		if (key == 1) {
-			this.mc.displayGuiScreen((GuiScreen) null);
-		}
-	}
-
 	protected void mouseClicked(int x, int y, int time) {
 		int minX = RenderPlayerMod.counterPosX;
 		int minY = RenderPlayerMod.counterPosY;
