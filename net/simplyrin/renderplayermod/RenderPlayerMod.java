@@ -24,9 +24,13 @@ import net.simplyrin.renderplayermod.command.RenderPlayer;
 @SideOnly(Side.CLIENT)
 @Mod(modid = RenderPlayerMod.MODID, version = RenderPlayerMod.VERSION, clientSideOnly = true)
 public class RenderPlayerMod {
-
 	public static final String MODID = "RenderPlayerMod";
 	public static final String VERSION = "1.0-DATOOMOU";
+	private final Minecraft mc;
+
+	public RenderPlayerMod() {
+		this.mc = Minecraft.getMinecraft();
+	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
@@ -39,6 +43,9 @@ public class RenderPlayerMod {
 
 	@SubscribeEvent
 	public void onRenderGui(RenderGameOverlayEvent.Post event) {
+		if ((!RenderPlayerMod.enabled) || (this.mc.gameSettings.showDebugInfo)) {
+			return;
+		}
 		GuiInventory.drawEntityOnScreen(
 				counterPosX, counterPosY, 30,
 				(float) counterPosX - 100,
@@ -91,6 +98,7 @@ public class RenderPlayerMod {
 		}
 	}
 
+	public static boolean enabled = true;
 	public static int counterPosX = 20;
 	public static int counterPosY = 60;
 }
