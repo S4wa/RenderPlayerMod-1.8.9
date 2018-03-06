@@ -1,5 +1,6 @@
 # RenderPlayerMod-1.8.9
-[ベース](https://github.com/SimplyRin/RenderPlayerMod-1.8.9) / [Modのダウンロード](https://github.com/S4wa/RenderPlayerMod-1.8.9/releases)
+[ベース](https://github.com/SimplyRin/RenderPlayerMod-1.8.9) / [Modのダウンロード](https://github.com/S4wa/RenderPlayerMod-1.8.9/releases)  
+※バージョンを更新して様子がおかしい時はコンフィグファイルを消してください (configって名前のフォルダにある"renderplayermod.txt"です)。
 
 変更点  
 ・/renderplayer [right,left] から、/renderplayerに変え CPSModのような操作方法で好きな場所に設定できる。  
