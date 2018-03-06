@@ -63,7 +63,7 @@ public class RenderPlayerMod {
 			try {
 				settings.createNewFile();
 				BufferedWriter writer = new BufferedWriter(new FileWriter(settings));
-				writer.write(counterPosX + ":" + counterPosY);
+				writer.write(counterPosX + ":" + counterPosY + ":" + enabled);
 				writer.close();
 			} catch (FileNotFoundException err) {
 				err.printStackTrace();
@@ -77,6 +77,7 @@ public class RenderPlayerMod {
 				String[] options = reader.readLine().split(":");
 				counterPosX = Integer.valueOf(options[0]).intValue();
 				counterPosY = Integer.valueOf(options[1]).intValue();
+				enabled = StringToBoolean(options[2]);
 				reader.close();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -91,10 +92,21 @@ public class RenderPlayerMod {
 		File settings = new File("config/renderplayermod.txt");
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(settings));
-			writer.write(counterPosX + ":" + counterPosY);
+			writer.write(counterPosX + ":" + counterPosY + ":" + enabled);
 			writer.close();
 		} catch (IOException err) {
 			err.printStackTrace();
+		}
+	}
+
+	private static boolean StringToBoolean(String arg) {
+		arg = arg.toLowerCase();
+		if ("true".equals(arg) || "1".equals(arg)) {
+			return (true);
+		} else if ("false".equals(arg) || "0".equals(arg)) {
+			return (false);
+		} else {
+			throw (new IllegalArgumentException(arg));
 		}
 	}
 
