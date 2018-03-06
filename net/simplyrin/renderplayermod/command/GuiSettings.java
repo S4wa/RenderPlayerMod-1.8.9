@@ -17,6 +17,7 @@ public class GuiSettings extends GuiScreen {
 	private boolean isDragging;
 	private int lastX;
 	private int lastY;
+	private GuiButton buttonToggle;
 	private GuiButton buttonReset;
 	private GuiButton buttonOpenGithub;
 
@@ -28,9 +29,11 @@ public class GuiSettings extends GuiScreen {
 
 	public void initGui() {
 		drawCenteredString(this.mc.fontRendererObj, "RenderPlayerMod 1.8.9", this.width / 2, 4, -1);
-		this.buttonList.add(this.buttonReset = new GuiButton(0, this.width / 2 - 75, this.height / 2 - 44, 150, 20,
+		this.buttonList.add(this.buttonToggle = new GuiButton(0, this.width / 2 - 75, this.height / 2 - 44, 150, 20,
+				"Enabled: " + RenderPlayerMod.enabled));
+		this.buttonList.add(this.buttonReset = new GuiButton(1, this.width / 2 - 75, this.height / 2 - 22, 150, 20,
 				"Reset Position"));
-		this.buttonList.add(this.buttonOpenGithub = new GuiButton(1, this.width / 2 - 75, this.height / 2 - 22, 150, 20,
+		this.buttonList.add(this.buttonOpenGithub = new GuiButton(2, this.width / 2 - 75, this.height / 2 + 0, 150, 20,
 				"Open Github"));
 	}
 
@@ -86,9 +89,14 @@ public class GuiSettings extends GuiScreen {
 
 	private String[] links = {"https://github.com/SimplyRin/RenderPlayerMod-1.8.9", "https://github.com/S4wa/RenderPlayerMod-1.8.9"};
 	protected void actionPerformed(GuiButton button) {
-		if (button == this.buttonReset) {
+		if (button == this.buttonToggle) {
+			RenderPlayerMod.enabled = !RenderPlayerMod.enabled;
+			this.buttonToggle.displayString = ("Enabled: " + RenderPlayerMod.enabled);
+
+		} else if (button == this.buttonReset) {
 			RenderPlayerMod.counterPosX = 20;
 			RenderPlayerMod.counterPosY = 60;
+
 		} else if (button == this.buttonOpenGithub) {
 			for (String s : links) {
 				try {
