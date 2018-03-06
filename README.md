@@ -1,5 +1,5 @@
 # RenderPlayerMod-1.8.9
-ベース: https://github.com/SimplyRin/RenderPlayerMod-1.8.9
+[ベース](https://github.com/SimplyRin/RenderPlayerMod-1.8.9) / [Modのダウンロード](https://github.com/S4wa/RenderPlayerMod-1.8.9/releases)
 
 変更点  
 ・/renderplayer [right,left] から、/renderplayerに変え CPSModのような操作方法で好きな場所に設定できる。  
