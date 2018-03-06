@@ -19,6 +19,7 @@ public class GuiSettings extends GuiScreen {
 	private int lastY;
 	private GuiButton buttonToggle;
 	private GuiButton buttonReset;
+	private GuiButton buttonReload;
 	private GuiButton buttonOpenGithub;
 
 	public GuiSettings() {
@@ -33,7 +34,9 @@ public class GuiSettings extends GuiScreen {
 				"Enabled: " + RenderPlayerMod.enabled));
 		this.buttonList.add(this.buttonReset = new GuiButton(1, this.width / 2 - 75, this.height / 2 - 22, 150, 20,
 				"Reset Position"));
-		this.buttonList.add(this.buttonOpenGithub = new GuiButton(2, this.width / 2 - 75, this.height / 2 + 0, 150, 20,
+		this.buttonList.add(this.buttonReload = new GuiButton(2, this.width / 2 - 75, this.height / 2 + 0, 150, 20,
+				"Reload Config"));
+		this.buttonList.add(this.buttonOpenGithub = new GuiButton(6, this.width / 2 - 75, this.height / 2 + 22, 150, 20,
 				"Open Github"));
 	}
 
@@ -54,10 +57,10 @@ public class GuiSettings extends GuiScreen {
 	}
 
 	protected void mouseClicked(int x, int y, int time) {
-		int minX = RenderPlayerMod.counterPosX;
-		int minY = RenderPlayerMod.counterPosY;
-		int maxX = RenderPlayerMod.counterPosX + 20;
-		int maxY = RenderPlayerMod.counterPosY + 60;
+		int minX = RenderPlayerMod.counterPosX - 25;
+		int minY = RenderPlayerMod.counterPosY - 65;
+		int maxX = RenderPlayerMod.counterPosX + 10;
+		int maxY = RenderPlayerMod.counterPosY + 10;
 		if ((x >= minX) && (x <= maxX) && (y >= minY) && (y <= maxY)) {
 			this.isDragging = true;
 			this.lastX = x;
@@ -96,6 +99,9 @@ public class GuiSettings extends GuiScreen {
 		} else if (button == this.buttonReset) {
 			RenderPlayerMod.counterPosX = 20;
 			RenderPlayerMod.counterPosY = 60;
+
+		} else if (button == this.buttonReload) {
+			RenderPlayerMod.reloadSettings();
 
 		} else if (button == this.buttonOpenGithub) {
 			for (String s : links) {
