@@ -44,7 +44,7 @@ public class RenderPlayerMod {
 	@SubscribeEvent
 	public void onRenderGui(RenderGameOverlayEvent.Post event) {
 		if ((!RenderPlayerMod.enabled) || (this.mc.gameSettings.showDebugInfo)) return;
-		GuiInventory.drawEntityOnScreen(counterPosX, counterPosY, 30, (float) 0, (float) 0, mc.thePlayer);
+		GuiInventory.drawEntityOnScreen(counterPosX, counterPosY, size, (float) 0, (float) 0, mc.thePlayer);
 	}
 
 	public static String getPrefix() {
@@ -57,7 +57,7 @@ public class RenderPlayerMod {
 			try {
 				settings.createNewFile();
 				BufferedWriter writer = new BufferedWriter(new FileWriter(settings));
-				writer.write(counterPosX + ":" + counterPosY + ":" + enabled);
+				writer.write(counterPosX + ":" + counterPosY + ":" + enabled + ":" + size);
 				writer.close();
 			} catch (FileNotFoundException err) {
 				err.printStackTrace();
@@ -72,6 +72,7 @@ public class RenderPlayerMod {
 				counterPosX = Integer.valueOf(options[0]).intValue();
 				counterPosY = Integer.valueOf(options[1]).intValue();
 				enabled = StringToBoolean(options[2]);
+				size = Integer.valueOf(options[3]).intValue();
 				reader.close();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -85,7 +86,7 @@ public class RenderPlayerMod {
 		File settings = new File("config/renderplayermod.txt");
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(settings));
-			writer.write(counterPosX + ":" + counterPosY + ":" + enabled);
+			writer.write(counterPosX + ":" + counterPosY + ":" + enabled + ":" + size);
 			writer.close();
 		} catch (IOException err) {
 			err.printStackTrace();
@@ -101,6 +102,7 @@ public class RenderPlayerMod {
 			counterPosX = Integer.valueOf(options[0]).intValue();
 			counterPosY = Integer.valueOf(options[1]).intValue();
 			enabled = StringToBoolean(options[2]);
+			size = Integer.valueOf(options[3]).intValue();
 			reader.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -124,4 +126,5 @@ public class RenderPlayerMod {
 	public static boolean guisettings = false;
 	public static int counterPosX = 20;
 	public static int counterPosY = 60;
+	public static int size = 30;
 }
