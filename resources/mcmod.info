@@ -1,0 +1,16 @@
+[
+{
+  "modid": "renderplayermod",
+  "name": "Render Player Mod",
+  "description": "Show the player on display",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://github.com/S4wa/RenderPlayerMod-1.8.9",
+  "updateUrl": "",
+  "authorList": ["SimplyRin", "REAL S4WA"],
+  "credits": "Beta",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
