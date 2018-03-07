@@ -22,7 +22,7 @@ public class GuiSettings extends GuiScreen {
 	private GuiButton buttonReset;
 	private GuiButton buttonResetSize;
 	private GuiButton buttonReload;
-	public static GuiSlideControl sliderSize;
+	private GuiSlideControl sliderSize;
 	private GuiButton buttonOpenGithub;
 
 	public GuiSettings() {
