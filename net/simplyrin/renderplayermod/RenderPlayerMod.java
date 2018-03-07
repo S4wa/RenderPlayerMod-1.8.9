@@ -25,7 +25,7 @@ import net.simplyrin.renderplayermod.command.RenderPlayer;
 @Mod(modid = RenderPlayerMod.MODID, version = RenderPlayerMod.VERSION, clientSideOnly = true)
 public class RenderPlayerMod {
 	public static final String MODID = "RenderPlayerMod";
-	public static final String VERSION = "0.0.2 PRE-RELEASE";
+	public static final String VERSION = "0.0.3 PRE-RELEASE";
 	private final Minecraft mc;
 
 	public RenderPlayerMod() {
@@ -43,13 +43,8 @@ public class RenderPlayerMod {
 
 	@SubscribeEvent
 	public void onRenderGui(RenderGameOverlayEvent.Post event) {
-		if ((!RenderPlayerMod.enabled) || (this.mc.gameSettings.showDebugInfo)) {
-			return;
-		}
-		GuiInventory.drawEntityOnScreen(
-				counterPosX, counterPosY, 30,
-				(float) 0, (float) 0,
-				Minecraft.getMinecraft().thePlayer);
+		if ((!RenderPlayerMod.enabled) || (this.mc.gameSettings.showDebugInfo)) return;
+		GuiInventory.drawEntityOnScreen(counterPosX, counterPosY, 30, (float) 0, (float) 0, mc.thePlayer);
 	}
 
 	public static String getPrefix() {
@@ -83,7 +78,6 @@ public class RenderPlayerMod {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			System.out.println(counterPosX);
 		}
 	}
 
@@ -95,6 +89,23 @@ public class RenderPlayerMod {
 			writer.close();
 		} catch (IOException err) {
 			err.printStackTrace();
+		}
+	}
+
+	public static void reloadSettings() {
+		File settings = new File("config/renderplayermod.txt");
+		if (!settings.exists()) return;
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(settings));
+			String[] options = reader.readLine().split(":");
+			counterPosX = Integer.valueOf(options[0]).intValue();
+			counterPosY = Integer.valueOf(options[1]).intValue();
+			enabled = StringToBoolean(options[2]);
+			reader.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -110,6 +121,7 @@ public class RenderPlayerMod {
 	}
 
 	public static boolean enabled = true;
+	public static boolean guisettings = false;
 	public static int counterPosX = 20;
 	public static int counterPosY = 60;
 }
