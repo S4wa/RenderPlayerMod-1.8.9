@@ -25,7 +25,7 @@ import net.simplyrin.renderplayermod.command.RenderPlayer;
 @Mod(modid = RenderPlayerMod.MODID, version = RenderPlayerMod.VERSION, clientSideOnly = true)
 public class RenderPlayerMod {
 	public static final String MODID = "RenderPlayerMod";
-	public static final String VERSION = "0.0.3 PRE-RELEASE";
+	public static final String VERSION = "0.0.4 PRE-RELEASE";
 	private final Minecraft mc;
 
 	public RenderPlayerMod() {
