@@ -11,6 +11,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.simplyrin.renderplayermod.GuiSliderFixed;
 import net.simplyrin.renderplayermod.RenderPlayerMod;
 
 public class GuiSettings extends GuiScreen {
@@ -20,6 +21,7 @@ public class GuiSettings extends GuiScreen {
 	private GuiButton buttonToggle;
 	private GuiButton buttonReset;
 	private GuiButton buttonReload;
+	private GuiSliderFixed sliderSize;
 	private GuiButton buttonOpenGithub;
 
 	public GuiSettings() {
@@ -36,7 +38,11 @@ public class GuiSettings extends GuiScreen {
 				"Reset Position"));
 		this.buttonList.add(this.buttonReload = new GuiButton(2, this.width / 2 - 75, this.height / 2 + 0, 150, 20,
 				"Reload Config"));
-		this.buttonList.add(this.buttonOpenGithub = new GuiButton(6, this.width / 2 - 75, this.height / 2 + 22, 150, 20,
+		this.sliderSize = new GuiSliderFixed(3, this.width / 2 - 75, this.height / 2 + 22, "Size",
+				Integer.valueOf(RenderPlayerMod.size).floatValue(), 500.0F, 1.0F);
+		//this.sliderSize.displayString = this.sliderSize.label + ": " + this.sliderSize.sliderValue;
+		this.buttonList.add(sliderSize);
+		this.buttonList.add(this.buttonOpenGithub = new GuiButton(4, this.width / 2 - 75, this.height / 2 + 44, 150, 20,
 				"Open Github"));
 	}
 
@@ -102,6 +108,9 @@ public class GuiSettings extends GuiScreen {
 
 		} else if (button == this.buttonReload) {
 			RenderPlayerMod.reloadSettings();
+
+		} else if (button == this.sliderSize) {
+			RenderPlayerMod.size = new Float(this.sliderSize.sliderValue).intValue();
 
 		} else if (button == this.buttonOpenGithub) {
 			for (String s : links) {
