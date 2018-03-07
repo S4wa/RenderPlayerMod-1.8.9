@@ -11,8 +11,8 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.simplyrin.renderplayermod.GuiSliderFixed;
 import net.simplyrin.renderplayermod.RenderPlayerMod;
+import net.simplyrin.renderplayermod.utilities.GuiSlideControl;
 
 public class GuiSettings extends GuiScreen {
 	private boolean isDragging;
@@ -20,8 +20,9 @@ public class GuiSettings extends GuiScreen {
 	private int lastY;
 	private GuiButton buttonToggle;
 	private GuiButton buttonReset;
+	private GuiButton buttonResetSize;
 	private GuiButton buttonReload;
-	private GuiSliderFixed sliderSize;
+	public static GuiSlideControl sliderSize;
 	private GuiButton buttonOpenGithub;
 
 	public GuiSettings() {
@@ -36,13 +37,14 @@ public class GuiSettings extends GuiScreen {
 				"Enabled: " + RenderPlayerMod.enabled));
 		this.buttonList.add(this.buttonReset = new GuiButton(1, this.width / 2 - 75, this.height / 2 - 22, 150, 20,
 				"Reset Position"));
-		this.buttonList.add(this.buttonReload = new GuiButton(2, this.width / 2 - 75, this.height / 2 + 0, 150, 20,
+		this.buttonList.add(this.buttonResetSize = new GuiButton(2, this.width / 2 - 75, this.height / 2 + 0, 150, 20,
+				"Reset Size"));
+		this.buttonList.add(this.buttonReload = new GuiButton(3, this.width / 2 - 75, this.height / 2 + 22, 150, 20,
 				"Reload Config"));
-		this.sliderSize = new GuiSliderFixed(3, this.width / 2 - 75, this.height / 2 + 22, "Size",
-				Integer.valueOf(RenderPlayerMod.size).floatValue(), 500.0F, 1.0F);
-		//this.sliderSize.displayString = this.sliderSize.label + ": " + this.sliderSize.sliderValue;
+		this.sliderSize = new GuiSlideControl(4, this.width / 2 - 75, this.height / 2 + 44, 150, 20, "Size: ",
+				1.0F, 100, new Integer(RenderPlayerMod.size).floatValue(), true);
 		this.buttonList.add(sliderSize);
-		this.buttonList.add(this.buttonOpenGithub = new GuiButton(4, this.width / 2 - 75, this.height / 2 + 44, 150, 20,
+		this.buttonList.add(this.buttonOpenGithub = new GuiButton(5, this.width / 2 - 75, this.height / 2 + 66, 150, 20,
 				"Open Github"));
 	}
 
@@ -100,17 +102,21 @@ public class GuiSettings extends GuiScreen {
 	protected void actionPerformed(GuiButton button) {
 		if (button == this.buttonToggle) {
 			RenderPlayerMod.enabled = !RenderPlayerMod.enabled;
-			this.buttonToggle.displayString = ("Enabled: " + RenderPlayerMod.enabled);
+			this.buttonToggle.displayString = "Enabled: " + RenderPlayerMod.enabled;
 
 		} else if (button == this.buttonReset) {
 			RenderPlayerMod.counterPosX = 20;
 			RenderPlayerMod.counterPosY = 60;
 
+		} else if (button == this.buttonResetSize) {
+			RenderPlayerMod.size = 30;
+			this.sliderSize.displayString = "Size: " + 30;
+
 		} else if (button == this.buttonReload) {
 			RenderPlayerMod.reloadSettings();
 
 		} else if (button == this.sliderSize) {
-			RenderPlayerMod.size = new Float(this.sliderSize.sliderValue).intValue();
+			RenderPlayerMod.size = this.sliderSize.GetValueAsInt();
 
 		} else if (button == this.buttonOpenGithub) {
 			for (String s : links) {
