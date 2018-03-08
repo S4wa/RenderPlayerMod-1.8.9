@@ -25,7 +25,7 @@ import net.simplyrin.renderplayermod.command.RenderPlayer;
 @Mod(modid = RenderPlayerMod.MODID, version = RenderPlayerMod.VERSION, clientSideOnly = true)
 public class RenderPlayerMod {
 	public static final String MODID = "RenderPlayerMod";
-	public static final String VERSION = "0.0.4 PRE-RELEASE";
+	public static final String VERSION = "0.0.5 PRE-RELEASE";
 	private final Minecraft mc;
 
 	public RenderPlayerMod() {
@@ -44,7 +44,7 @@ public class RenderPlayerMod {
 	@SubscribeEvent
 	public void onRenderGui(RenderGameOverlayEvent.Post event) {
 		if ((!RenderPlayerMod.enabled) || (this.mc.gameSettings.showDebugInfo)) return;
-		GuiInventory.drawEntityOnScreen(counterPosX, counterPosY, size, (float) 0, (float) 0, mc.thePlayer);
+		GuiInventory.drawEntityOnScreen(counterPosX, counterPosY, size, horizontally, vertically, mc.thePlayer);
 	}
 
 	public static String getPrefix() {
@@ -57,7 +57,7 @@ public class RenderPlayerMod {
 			try {
 				settings.createNewFile();
 				BufferedWriter writer = new BufferedWriter(new FileWriter(settings));
-				writer.write(counterPosX + ":" + counterPosY + ":" + enabled + ":" + size);
+				writer.write(counterPosX + ":" + counterPosY + ":" + enabled + ":" + size + ":" + horizontally + ":" + vertically);
 				writer.close();
 			} catch (FileNotFoundException err) {
 				err.printStackTrace();
@@ -73,6 +73,8 @@ public class RenderPlayerMod {
 				counterPosY = Integer.valueOf(options[1]).intValue();
 				enabled = StringToBoolean(options[2]);
 				size = Integer.valueOf(options[3]).intValue();
+				horizontally = Float.parseFloat(options[4]);
+				vertically = Float.parseFloat(options[5]);
 				reader.close();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -86,7 +88,7 @@ public class RenderPlayerMod {
 		File settings = new File("config/renderplayermod.txt");
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(settings));
-			writer.write(counterPosX + ":" + counterPosY + ":" + enabled + ":" + size);
+			writer.write(counterPosX + ":" + counterPosY + ":" + enabled + ":" + size + ":" + horizontally + ":" + vertically);
 			writer.close();
 		} catch (IOException err) {
 			err.printStackTrace();
@@ -103,6 +105,8 @@ public class RenderPlayerMod {
 			counterPosY = Integer.valueOf(options[1]).intValue();
 			enabled = StringToBoolean(options[2]);
 			size = Integer.valueOf(options[3]).intValue();
+			horizontally = Float.parseFloat(options[4]);
+			vertically = Float.parseFloat(options[5]);
 			reader.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -127,4 +131,6 @@ public class RenderPlayerMod {
 	public static int counterPosX = 20;
 	public static int counterPosY = 60;
 	public static int size = 30;
+	public static float horizontally = 0;
+	public static float vertically = 0;
 }
