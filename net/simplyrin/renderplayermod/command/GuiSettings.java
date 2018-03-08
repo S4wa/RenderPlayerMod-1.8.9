@@ -23,6 +23,10 @@ public class GuiSettings extends GuiScreen {
 	private GuiButton buttonResetSize;
 	private GuiButton buttonReload;
 	private GuiSlideControl sliderSize;
+	private GuiSlideControl sliderHorizontally;
+	private GuiSlideControl sliderVertically;
+	private GuiButton buttonHorizontallyReset;
+	private GuiButton buttonVerticallyReset;
 	private GuiButton buttonOpenGithub;
 
 	public GuiSettings() {
@@ -37,14 +41,24 @@ public class GuiSettings extends GuiScreen {
 				"Enabled: " + RenderPlayerMod.enabled));
 		this.buttonList.add(this.buttonReset = new GuiButton(1, this.width / 2 - 75, this.height / 2 - 22, 150, 20,
 				"Reset Position"));
-		this.buttonList.add(this.buttonResetSize = new GuiButton(2, this.width / 2 - 75, this.height / 2 + 0, 150, 20,
-				"Reset Size"));
-		this.buttonList.add(this.buttonReload = new GuiButton(3, this.width / 2 - 75, this.height / 2 + 22, 150, 20,
+		this.buttonList.add(this.buttonReload = new GuiButton(2, this.width / 2 - 75, this.height / 2 + 0, 150, 20,
 				"Reload Config"));
-		this.sliderSize = new GuiSlideControl(4, this.width / 2 - 75, this.height / 2 + 44, 150, 20, "Size: ",
-				1.0F, 100, new Integer(RenderPlayerMod.size).floatValue(), true);
+
+		this.sliderSize = new GuiSlideControl(3, this.width / 2 - 75, this.height / 2 + 22, 150, 20,
+				"Size: ", 1.0F, 100.0F, new Integer(RenderPlayerMod.size).floatValue(), true);
+		this.sliderHorizontally = new GuiSlideControl(4, this.width / 2 - 75, this.height / 2 + 44, 150, 20,
+				"Horizontally: ", -150.0F, 150.0F, RenderPlayerMod.horizontally, true);
+		this.sliderVertically = new GuiSlideControl(5, this.width / 2 - 75, this.height / 2 + 66, 150, 20,
+				"Vertically: ", -150.0F, 150.0F, RenderPlayerMod.vertically, true);
 		this.buttonList.add(sliderSize);
-		this.buttonList.add(this.buttonOpenGithub = new GuiButton(5, this.width / 2 - 75, this.height / 2 + 66, 150, 20,
+		this.buttonList.add(sliderHorizontally);
+		this.buttonList.add(sliderVertically);
+
+		this.buttonList.add(this.buttonResetSize = new GuiButton(6, this.width / 2 + 77, this.height / 2 + 22, 20, 20, "-"));
+		this.buttonList.add(this.buttonHorizontallyReset = new GuiButton(7, this.width / 2 + 77, this.height / 2 + 44, 20, 20, "-"));
+		this.buttonList.add(this.buttonVerticallyReset = new GuiButton(8, this.width / 2 + 77, this.height / 2 + 66, 20, 20, "-"));
+
+		this.buttonList.add(this.buttonOpenGithub = new GuiButton(9, this.width / 2 - 75, this.height / 2 + 88, 150, 20,
 				"Open Github"));
 	}
 
@@ -108,15 +122,29 @@ public class GuiSettings extends GuiScreen {
 			RenderPlayerMod.counterPosX = 20;
 			RenderPlayerMod.counterPosY = 60;
 
-		} else if (button == this.buttonResetSize) {
-			RenderPlayerMod.size = 30;
-			this.sliderSize.displayString = "Size: " + 30;
-
 		} else if (button == this.buttonReload) {
 			RenderPlayerMod.reloadSettings();
 
 		} else if (button == this.sliderSize) {
 			RenderPlayerMod.size = this.sliderSize.GetValueAsInt();
+
+		} else if (button == this.buttonResetSize) {
+			RenderPlayerMod.size = 30;
+			this.sliderSize.displayString = "Size: " + 30;
+
+		} else if (button == this.sliderHorizontally) {
+			RenderPlayerMod.horizontally = this.sliderHorizontally.GetValueAsFloat();
+
+		} else if (button == this.sliderVertically) {
+			RenderPlayerMod.vertically = this.sliderVertically.GetValueAsFloat();
+
+		} else if (button == this.buttonHorizontallyReset) {
+			RenderPlayerMod.horizontally = 0.0F;
+			this.sliderHorizontally.displayString = "Horizontally: " + 0;
+
+		} else if (button == this.buttonVerticallyReset) {
+			RenderPlayerMod.vertically = 0.0F;
+			this.sliderVertically.displayString = "Vertically: " + 0;
 
 		} else if (button == this.buttonOpenGithub) {
 			for (String s : links) {
