@@ -1,5 +1,5 @@
 # RenderPlayerMod-1.8.9
-[ベース](https://github.com/SimplyRin/RenderPlayerMod-1.8.9) / [Modのダウンロード](https://github.com/S4wa/RenderPlayerMod-1.8.9/releases)  
+[Modのダウンロード](https://github.com/S4wa/RenderPlayerMod-1.8.9/releases) / [ベース1](https://github.com/SimplyRin/RenderPlayerMod-1.8.9) / [ベース2](https://youtu.be/9jucA23WRtg)  
 ※バージョンを更新して様子がおかしい時はコンフィグファイルを消してください (configって名前のフォルダにある"renderplayermod.txt"です)。  
 
 変更点  
